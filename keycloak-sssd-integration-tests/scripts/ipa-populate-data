@@ -1,0 +1,24 @@
+# Provisioning of testing users
+
+echo $PASSWORD | kinit admin
+
+if ipa user-find emily && ipa user-find david; then
+  echo "provision.sh: Example users already exists. Skipping it...";
+else
+  ipa user-add emily --first=Emily --last=Jones --email=emily@jones.com --phone=783.812.0168 --street="5129 Russell Bridge Apt. 242" --city="New Christineburgh" --state="IN" --postalcode=60759
+  echo emily123 | ipa passwd emily
+
+  ipa user-add david --first=David --last=Baker --email=david@baker.com --phone=1-655-139-6802 --street="6440 Baker Corners" --city="Raymondfurt" --state="ID" --postalcode=13959
+  echo david123 | ipa passwd david
+  echo "provision.sh: Example users added to freeipa";
+fi
+
+if ipa group-find testgroup --users=emily; then
+  echo "provision.sh: Example user already added to the group. Skipping it...";
+else
+  ipa group-add testgroup
+  ipa group-add-member testgroup --users=emily
+  echo "provision.sh: User added to the example's group";
+fi
+
+

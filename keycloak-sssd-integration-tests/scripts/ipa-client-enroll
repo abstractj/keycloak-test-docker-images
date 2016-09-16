@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Copyright 2016 Jan Pazdziora
+#
+# Licensed under the Apache License, Version 2.0 (the "License").
+
+# If the machine is not yet IPA-enrolled, fetch its OTP from the IPA
+# server and IPA-enroll the machine. In container with Apache HTTP
+# server, also get keytab for the HTTP/ service and SSL certificate.
+
+set -e
+
+exec >> /proc/1/fd/1 2>> /proc/1/fd/2
+
+if [ -f /etc/ipa/default.conf ] ; then
+	echo "$HOSTNAME is already IPA-enrolled."
+	exit
+fi
+
+DOMAIN=test.local
+IPA=ipa.$DOMAIN
+
+(
+set -x
+ipa-client-install --server $IPA --domain $DOMAIN -p admin -w $PASSWORD --enable-dns-updates --no-ntp --no-nisdomain --no-ssh --no-sshd --no-sudo --no-dns-sshfp --unattended
+)
+
+

@@ -1,0 +1,22 @@
+# Setup for SSSD
+SSSD_FILE="/etc/sssd/sssd.conf"
+
+if [ -f "$SSSD_FILE" ];
+then
+  sed -i '/ldap_tls_cacert/a ldap_user_extra_attrs = mail:mail, sn:sn, givenname:givenname, telephoneNumber:telephoneNumber' $SSSD_FILE
+  sed -i 's/nss, pam/nss, pam, ifp/' $SSSD_FILE
+  sed -i '/\[ifp\]/a allowed_uids = root\nuser_attributes = +mail, +telephoneNumber, +givenname, +sn' $SSSD_FILE
+
+  systemctl restart dbus
+  systemctl restart sssd
+else
+  echo "Please make sure you have $SSSD_FILE into your system! Aborting."
+  exit 1
+fi
+
+# Install DBus Java
+dnf install -y /opt/jboss/rpm/libunix*.rpm --quiet
+
+
+
+
