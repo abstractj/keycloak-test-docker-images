@@ -14,9 +14,6 @@ else
   exit 1
 fi
 
-# Install DBus Java
-dnf install -y /opt/jboss/rpm/libunix*.rpm --quiet
-
 
 
 
