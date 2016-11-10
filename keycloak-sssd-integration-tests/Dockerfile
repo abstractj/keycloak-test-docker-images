@@ -5,7 +5,7 @@ ADD pam.d/keycloak /etc/pam.d/keycloak
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 
-RUN dnf install -y iputils freeipa-admintools java-1.8.0-openjdk* sssd-dbus nmap-ncat pamtester bash-completion libsss_simpleifp maven zsh && dnf clean all
+RUN dnf install -y iputils freeipa-admintools java-1.8.0-openjdk* sssd-dbus nmap-ncat pamtester bash-completion libsss_simpleifp maven zsh jna* && dnf clean all
 
 RUN mkdir /var/run/dbus
 RUN mkdir -p /opt/jboss/keycloak-repo
