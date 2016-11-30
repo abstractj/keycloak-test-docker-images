@@ -1,16 +1,16 @@
 version: '2'
 services:
   ipa:
-    image: adelton/freeipa-server:fedora-23
+    image: adelton/freeipa-server:latest
     volumes:
       - /var/lib/ipa-data:/data:Z
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    hostname: ipa
-    domainname: test.local
+    hostname: ipa.test
+    domainname: local
     ports:
       - "88"
     entrypoint:
-      - /usr/sbin/init-data
+      - /usr/local/sbin/init
       - --realm=TEST.LOCAL
       - --setup-dns
       - --no-forwarders

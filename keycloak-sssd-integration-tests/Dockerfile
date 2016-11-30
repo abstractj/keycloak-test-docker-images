@@ -1,4 +1,4 @@
-FROM adelton/freeipa-client:fedora-23
+FROM adelton/freeipa-client:latest
 
 ADD scripts/ /opt/jboss/scripts/
 ADD pam.d/keycloak /etc/pam.d/keycloak
