@@ -26,7 +26,7 @@ services:
     environment:
       - PASSWORD=${IPA_PASSWORD}
     entrypoint:
-      - /bin/zsh
+      - /opt/jboss/scripts/entrypoint.sh
     volumes:
       - ${KEYCLOAK_REPO}:/opt/jboss/keycloak-repo
       - ${M2_PATH}:/root/.m2
