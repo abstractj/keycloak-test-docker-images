@@ -23,6 +23,9 @@ services:
     build: .
     privileged: true
     domainname: test.local
+    ports:
+      - "8080"
+      - "8081"
     environment:
       - PASSWORD=${IPA_PASSWORD}
     entrypoint:
